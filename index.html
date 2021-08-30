@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>AVRL Task</title>
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+
+			.container {
+				width: 60%;
+				border: 1rem solid #0b1624;
+				height: 300px;
+				margin: 2rem auto;
+				display: flex;
+				background-color: #061731;
+			}
+
+			.container span {
+				height: 100%;
+				flex: 1;
+				align-self: flex-end;
+			}
+
+			.container span[data-rating="1"] {
+				background-color: #7953bd;
+			}
+
+			.container span[data-rating="2"] {
+				background-color: #d152a9;
+			}
+
+			.container span[data-rating="3"] {
+				background-color: #fe6486;
+			}
+
+			.container span[data-rating="4"] {
+				background-color: #ff8a67;
+			}
+
+			.container span[data-rating="5"] {
+				background-color: #ffbe56;
+			}
+
+			.buttons-wrapper {
+				margin: 0 auto;
+				width: 60%;
+				display: flex;
+				align-items: center;
+				justify-content: space-around;
+			}
+
+			.button {
+				border: none;
+				color: #fff;
+				padding: 0.5rem 1.5rem;
+				font-size: 16px;
+				cursor: pointer;
+			}
+
+			.start-button {
+				background-color: #008556;
+			}
+
+			.stop-button {
+				background-color: #e01b1a;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<span class="column" data-rating="1"></span>
+			<span class="column" data-rating="2"></span>
+			<span class="column" data-rating="3"></span>
+			<span class="column" data-rating="4"></span>
+			<span class="column" data-rating="5"></span>
+		</div>
+		<div class="buttons-wrapper">
+			<button class="button start-button" id="start">Start</button>
+			<button class="button stop-button" id="stop">Stop</button>
+		</div>
+		<script>
+			const startButton = document.getElementById("start");
+			const stopButton = document.getElementById("stop");
+			const columns = document.getElementsByClassName("column");
+
+			startButton.addEventListener("click", start);
+			stopButton.addEventListener("click", stop);
+
+			let speed = 800;
+			let animationStarted = true;
+			let intervalHolder;
+
+			function start() {
+				if (animationStarted) {
+					animationStarted = false;
+					intervalHolder = setInterval(() => {
+						for (const column of columns) {
+							const height = (Math.random() * 100).toFixed(2) + "%";
+							column.style.height = `${height}`;
+							column.style.transitionDuration = `${speed}ms`;
+						}
+					}, speed / 2);
+				}
+			}
+
+			function stop() {
+				if (!animationStarted) {
+					animationStarted = true;
+					clearInterval(intervalHolder);
+				}
+			}
+		</script>
+	</body>
+</html>
